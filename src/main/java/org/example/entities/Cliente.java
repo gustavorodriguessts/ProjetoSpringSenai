@@ -2,18 +2,30 @@ package org.example.entities;
 
 import jakarta.persistence.*;
 
-@Entity
+@Entity // Declara que a classe 'Cliente' será uma entidade
 public class Cliente {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Id // Declara a chave primária
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Faz o BD gerar um valor para este atributo (auto_increment)
+    @Column(name = "ID")
     private Long id;
     @Column(name = "NOME", nullable = false, length = 50)
     private String nome;
-    @Column(name = "EMAIL", nullable = false, length = 100)
+    @Column(name = "EMAIL", nullable = false, unique = true, length = 100)
     private String email;
     @Column(name = "CPF", nullable = false, length = 14)
     private String cpf;
+
+    /*
+    @Column: configurações da coluna
+
+    name: como irá aparecer no BD
+
+    nullable: atributo nulo?
+
+    length: tamanho máximo de um valor
+
+     unique: atributo único?
+    */
 
     public Cliente() {
     }
