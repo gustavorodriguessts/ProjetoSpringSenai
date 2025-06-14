@@ -1,7 +1,7 @@
 package org.example.controller;
 
-import org.example.entities.Usuario;
-import org.example.services.UsuarioService;
+import org.example.entities.Fornecedor;
+import org.example.services.FornecedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,33 +9,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usuario")
-public class UsuarioController {
+@RequestMapping("/fornecedor")
+public class FornecedorController {
     @Autowired
-    private UsuarioService usuarioService;
+    private FornecedorService FornecedorService;
 
     @GetMapping
-    public List<Usuario> listarTodos(){
-        return usuarioService.listarTodos();
+    public List<Fornecedor> listarTodos(){
+        return FornecedorService.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id){
-        return usuarioService.buscarPorId(id)
+    public ResponseEntity<Fornecedor> buscarPorId(@PathVariable Long id){
+        return FornecedorService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse((ResponseEntity.notFound().build()) );
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> criar(@RequestBody Usuario usuario){
-        Usuario salvo = usuarioService.salvar(usuario);
+    public ResponseEntity<Fornecedor> criar(@RequestBody Fornecedor Fornecedor){
+        Fornecedor salvo = FornecedorService.salvar(Fornecedor);
         return ResponseEntity.ok(salvo);
     }
 
     @PutMapping("/{id")
-    public ResponseEntity<Usuario> atualizar(@RequestBody Long id, @RequestBody Usuario usuario) {
+    public ResponseEntity<Fornecedor> atualizar(@RequestBody Long id, @RequestBody Fornecedor Fornecedor) {
         try {
-            Usuario atualizado = usuarioService.atualizar(id, usuario);
+            Fornecedor atualizado = FornecedorService.atualizar(id, Fornecedor);
             return ResponseEntity.ok(atualizado);
         } catch (RuntimeException e) {
             {
@@ -43,11 +43,11 @@ public class UsuarioController {
             }
         }
     }
-    
+
     @DeleteMapping("/{id")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         try {
-            usuarioService.deletar(id);
+            FornecedorService.deletar(id);
             return ResponseEntity.noContent().build();
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
